@@ -1,13 +1,34 @@
 package com.lukaszOsial.salesplatform.contractor.model;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "contractors")
 public class Contractor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @Column(name = "code")
     private String code;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "tax_identification_number")
     private String taxIdentificationNumber;
+
+    @Column(name = "zip_code")
     private String zipCode;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "street")
     private String street;
+
+    @Column(name = "phone_number")
     private String phoneNumber;
 
     public Contractor() {
