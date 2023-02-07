@@ -1,5 +1,13 @@
-import React, { Component } from "react";
+import { Component } from "react";
 import ContractorService from "../../services/ContractorService";
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
 class ListContractorComponent extends Component {
 	constructor(props) {
@@ -18,38 +26,40 @@ class ListContractorComponent extends Component {
 
 	render() {
 		return (
-			<div>
-				<h2 className='text-center'>Lista kontrahentów</h2>
-				<div className='row'>
-					<table className='table table-striped table-bordered'>
-						<thead>
-							<tr>
-								<th>Kod </th>
-								<th>Nazwa</th>
-								<th>NIP</th>
-								<th>Kod pocztowy</th>
-								<th>Miasto</th>
-                <th>Ulica</th>
-                <th>Numer telefonu</th>
-							</tr>
-						</thead>
-						<tbody>
-							{this.state.contractors.map(contractor => (
-								<tr key={contractor.code}>
-                  <td>{contractor.code}</td>
-									<td>{contractor.name}</td>
-									<td>{contractor.taxIdentificationNumber}</td>
-									<td>{contractor.zipCode}</td>
-									<td>{contractor.city}</td>
-                  <td>{contractor.street}</td>
-									<td>{contractor.phoneNumber}</td>
-								</tr>
-							))}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		);
+      <TableContainer component={Paper}>
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell>Kod</TableCell>
+            <TableCell align="right">Nazwa</TableCell>
+            <TableCell align="right">NIP</TableCell>
+            <TableCell align="right">Kod pocztowy</TableCell>
+            <TableCell align="right">Miasto</TableCell>
+            <TableCell align="right">Ulica</TableCell>
+            <TableCell align="right">Numer telefonu</TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {this.state.contractors.map((contractor) => (
+            <TableRow
+              key={contractor.name}
+              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+            >
+              <TableCell component="th" scope="row">
+                {contractor.code}
+              </TableCell>
+              <TableCell align="right">{contractor.name}</TableCell>
+              <TableCell align="right">{contractor.taxIdentificationNumber}</TableCell>
+              <TableCell align="right">{contractor.zipCode}</TableCell>
+              <TableCell align="right">{contractor.city}</TableCell>
+              <TableCell align="right">{contractor.street}</TableCell>
+              <TableCell align="right">{contractor.phoneNumber}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    </TableContainer>
+    )
 	}
 }
 
