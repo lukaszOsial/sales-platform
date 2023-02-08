@@ -1,14 +1,16 @@
-import './App.css';
-import ListContractorComponent from './components/contractor/ListContractorComponent';
+import "./App.css";
+import ListContractorComponent from "./components/contractor/ListContractorComponent";
+import HeaderComponent from "./components/HeaderComponent";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <ListContractorComponent/>
-      </header>
-    </div>
-  );
+	return (
+		<div>
+			<HeaderComponent />
+			<div className='container'>
+				<ListContractorComponent />
+			</div>
+		</div>
+	);
 }
 
 export default App;
