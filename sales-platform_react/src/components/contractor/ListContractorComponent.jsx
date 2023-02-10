@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ContractorService from "../../services/ContractorService";
+import { Link } from "react-router-dom";
 
 class ListContractorComponent extends Component {
 	constructor(props) {
@@ -28,7 +29,7 @@ class ListContractorComponent extends Component {
 								<th>Miasto</th>
 								<th>Ulica</th>
 								<th>Numer telefonu</th>
-                <th>Akcje</th>
+								<th>Akcje</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -41,11 +42,21 @@ class ListContractorComponent extends Component {
 									<td>{contractor.city}</td>
 									<td>{contractor.street}</td>
 									<td>{contractor.phoneNumber}</td>
-                  <td></td>
+									<td></td>
 								</tr>
 							))}
 						</tbody>
 					</table>
+				</div>
+				<div className='row'>
+					<Link to='/add-contractor'>
+					<button className='btn btn-info'>
+						<i className='bi bi-person-fill-add'></i>Dodaj kontrahenta firmowego
+					</button>
+					</Link>
+					<button className='btn btn-info'>
+						<i className='bi bi-person-fill-add'></i>Dodaj kontrahenta detalicznego
+					</button>
 				</div>
 			</div>
 		);
