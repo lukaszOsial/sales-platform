@@ -1,6 +1,7 @@
 import "./App.css";
 import ListContractorComponent from "./components/contractor/ListContractorComponent";
 import HeaderComponent from "./components/HeaderComponent";
+import FooterComponent from "./components/FooterComponent";
 
 function App() {
 	return (
@@ -9,6 +10,7 @@ function App() {
 			<div className='container'>
 				<ListContractorComponent />
 			</div>
+			<FooterComponent/>
 		</div>
 	);
 }
