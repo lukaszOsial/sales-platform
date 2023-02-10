@@ -3,10 +3,7 @@ package com.lukaszOsial.salesplatform.contractor.controller;
 import com.lukaszOsial.salesplatform.contractor.model.Contractor;
 import com.lukaszOsial.salesplatform.contractor.repository.ContractorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,5 +19,11 @@ public class ContractorController {
     @GetMapping("/contractors")
     public List<Contractor> getAllContractors() {
         return contractorRepository.findAll();
+    }
+
+    //create contractor method
+    @PostMapping("/contractors")
+    public Contractor createContractor(@RequestBody Contractor contractor) {
+        return contractorRepository.save(contractor);
     }
 }
