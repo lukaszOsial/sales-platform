@@ -15,6 +15,34 @@ class CreateContractorComponent extends Component {
 		};
 	}
 
+	changeCodeHandler = event => {
+		this.setState({ code: event.target.value });
+	};
+
+	changeNameHandler = event => {
+		this.setState({ name: event.target.value });
+	};
+
+	changeTaxIdentificationNumberHandler = event => {
+		this.setState({ taxIdentificationNumber: event.target.value });
+	};
+
+	changePhoneNumberHandler = event => {
+		this.setState({ phoneNumber: event.target.value });
+	};
+
+	changeCityHandler = event => {
+		this.setState({ city: event.target.value });
+	};
+
+	changeStreetHandler = event => {
+		this.setState({ street: event.target.value });
+	};
+
+	changeZipCodeHandler = event => {
+		this.setState({ zipCode: event.target.value });
+	};
+
 	render() {
 		return (
 			<div>
@@ -29,7 +57,7 @@ class CreateContractorComponent extends Component {
 									className='form-control'
 									placeholder='Kod kotrahenta'
 									value={this.state.code}
-									onChange={this.changeCode}
+									onChange={this.changeCodeHandler}
 								/>
 							</div>
 							<div className='form-group col-md-5'>
@@ -39,7 +67,7 @@ class CreateContractorComponent extends Component {
 									className='form-control'
 									placeholder='Nazwa firmy lub imię i nazwisko'
 									value={this.state.name}
-									onChange={this.changeName}
+									onChange={this.changeNameHandler}
 								/>
 							</div>
 						</div>
@@ -51,7 +79,7 @@ class CreateContractorComponent extends Component {
 									className='form-control'
 									placeholder='Numer identyfikacji podatkowej'
 									value={this.state.taxIdentificationNumber}
-									onChange={this.changeTaxIdentificationNumber}
+									onChange={this.changeTaxIdentificationNumberHandler}
 								/>
 							</div>
 							<div className='form-group col-md-5'>
@@ -60,7 +88,7 @@ class CreateContractorComponent extends Component {
 									name='phoneNumber'
 									className='form-control'
 									value={this.state.phoneNumber}
-									onChange={this.changePhoneNumber}
+									onChange={this.changePhoneNumberHandler}
 								/>
 							</div>
 						</div>
@@ -71,7 +99,7 @@ class CreateContractorComponent extends Component {
 									name='city'
 									className='form-control'
 									value={this.state.city}
-									onChange={this.changeCity}
+									onChange={this.changeCityHandler}
 								/>
 							</div>
 							<div className='form-group col-md-4'>
@@ -81,7 +109,7 @@ class CreateContractorComponent extends Component {
 									className='form-control'
 									placeholder='Ulica wraz z numerem domu lub mieszkania'
 									value={this.state.street}
-									onChange={this.changeStreet}
+									onChange={this.changeStreetHandler}
 								/>
 							</div>
 							<div className='form-group col-md-2'>
@@ -90,7 +118,7 @@ class CreateContractorComponent extends Component {
 									name='zipCode'
 									className='form-control'
 									value={this.state.zipCode}
-									onChange={this.changeZipCode}
+									onChange={this.changeZipCodeHandler}
 								/>
 							</div>
 						</div>
