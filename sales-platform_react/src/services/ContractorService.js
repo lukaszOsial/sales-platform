@@ -8,6 +8,10 @@ class ContractorService {
         return axios.get(COMPANY_MANAGEMENT_BASE_URL);
     }
 
+    createContractor(contractor) {
+        return axios.post(COMPANY_MANAGEMENT_BASE_URL, contractor);
+    }
+
 }
 
 export default new ContractorService();

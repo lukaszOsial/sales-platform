@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import ContractorService from "../../services/ContractorService";
 
 class CreateContractorComponent extends Component {
 	constructor(props) {
@@ -13,7 +15,29 @@ class CreateContractorComponent extends Component {
 			street: "",
 			zipCode: "",
 		};
+
+		this.changeCodeHandler = this.changeCodeHandler.bind(this);
+		this.changeNameHandler = this.changeNameHandler.bind(this);
+		this.changeTaxIdentificationHandler = this.changeTaxIdentificationNumberHandler.bind(this);
+		this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
+		this.changeCityHandler = this.changeCityHandler.bind(this);
+		this.changeStreetHandler = this.changeStreetHandler.bind(this);
+		this.changeZipCodeHandler = this.changeZipCodeHandler.bind(this);
+		this.saveContractor = this.saveContractor.bind(this);
 	}
+
+	saveContractor = () => {
+		let contractor = {
+			code: this.state.code,
+			name: this.state.name,
+			taxIdentificationNumber: this.state.taxIdentificationNumber,
+			phoneNumber: this.state.phoneNumber,
+			city: this.state.city,
+			street: this.state.street,
+			zipCode: this.state.zipCode,
+		};
+		ContractorService.createContractor(contractor);
+	};
 
 	changeCodeHandler = event => {
 		this.setState({ code: event.target.value });
@@ -122,10 +146,16 @@ class CreateContractorComponent extends Component {
 								/>
 							</div>
 						</div>
-
-						<button type='submit' className='btn btn-primary'>
-							Dodaj
-						</button>
+						<Link to='/contractors'>
+							<button className='btn btn-primary' onClick={this.saveContractor}>
+								<i className='bi bi-plus-circle'></i>Dodaj
+							</button>
+						</Link>
+						<Link to='/contractors'>
+							<button className='btn btn-danger'>
+								<i className='bi bi-x-circle'></i>Zamknij
+							</button>
+						</Link>
 					</form>
 				</div>
 			</div>
