@@ -14,7 +14,7 @@ function App() {
 					<Routes>
 						<Route exact path ='/' element={<ListContractorComponent/>}/>
 						<Route path ='/contractors' element={<ListContractorComponent/>}/>
-						<Route path ='/add-contractor' element={<CreateContractorComponent/>}/>
+						<Route path ='/add-contractor/:id' element={<CreateContractorComponent/>}/>
 					</Routes>
 				</div>
 				<FooterComponent />

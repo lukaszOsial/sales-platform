@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ContractorService from "../../services/ContractorService";
+
+export const withParams = Component => props => {
+	let params = useParams();
+	return <Component {...props} params={params} />;
+};
 
 class CreateContractorComponent extends Component {
 	constructor(props) {
 		super(props);
 
+		let { id } = props.params;
+
 		this.state = {
+			id: id,
 			code: "",
 			name: "",
 			taxIdentificationNumber: "",
@@ -18,15 +27,35 @@ class CreateContractorComponent extends Component {
 
 		this.changeCodeHandler = this.changeCodeHandler.bind(this);
 		this.changeNameHandler = this.changeNameHandler.bind(this);
-		this.changeTaxIdentificationHandler = this.changeTaxIdentificationNumberHandler.bind(this);
+		this.changeTaxIdentificationHandler =
+			this.changeTaxIdentificationNumberHandler.bind(this);
 		this.changePhoneNumberHandler = this.changePhoneNumberHandler.bind(this);
 		this.changeCityHandler = this.changeCityHandler.bind(this);
 		this.changeStreetHandler = this.changeStreetHandler.bind(this);
 		this.changeZipCodeHandler = this.changeZipCodeHandler.bind(this);
-		this.saveContractor = this.saveContractor.bind(this);
+		this.saveoOrUpdateContractor = this.saveoOrUpdateContractor.bind(this);
 	}
 
-	saveContractor = () => {
+	componentDidMount() {
+		if (this.state.id === "business" || this.state.id === "customer") {
+			return;
+		} else {
+			ContractorService.getContractorById(this.state.id).then(res => {
+				let contractor = res.data;
+				this.setState({
+					code: contractor.code,
+					name: contractor.name,
+					taxIdentificationNumber: contractor.taxIdentificationNumber,
+					phoneNumber: contractor.phoneNumber,
+					city: contractor.city,
+					street: contractor.street,
+					zipCode: contractor.zipCode,
+				});
+			});
+		}
+	}
+
+	saveoOrUpdateContractor = () => {
 		let contractor = {
 			code: this.state.code,
 			name: this.state.name,
@@ -36,7 +65,11 @@ class CreateContractorComponent extends Component {
 			street: this.state.street,
 			zipCode: this.state.zipCode,
 		};
-		ContractorService.createContractor(contractor);
+		if (this.state.id === "business" || this.state.id === "customer") {
+			ContractorService.createContractor(contractor);
+		} else {
+			ContractorService.updateContractor(contractor, this.state.id);
+		}
 	};
 
 	changeCodeHandler = event => {
@@ -67,11 +100,78 @@ class CreateContractorComponent extends Component {
 		this.setState({ zipCode: event.target.value });
 	};
 
+	getSectionTitle() {
+		if (this.state.id === "business") {
+			return <h3>Dodaj kontrahenta firmowego</h3>;
+		} else if (this.state.id === "customer") {
+			return <h3>Dodaj kontrahenta detalicznego</h3>;
+		} else {
+			return <h3>Edytuj kontrahenta</h3>;
+		}
+	}
+
+	getNameTitle() {
+		if (this.state.id === "business") {
+			return <label>Nazwa firmy</label>;
+		} else {
+			return <label>Imię i nazwisko</label>;
+		}
+	}
+
+	getTaxIdentificationNumberInput() {
+		if (this.state.id == "business") {
+			return (
+				<div className='form-group col-md-5'>
+					<label>NIP</label>
+					<input
+						name='taxIdentificationNumber'
+						className='form-control'
+						placeholder='Numer identyfikacji podatkowej'
+						value={this.state.taxIdentificationNumber}
+						onChange={this.changeTaxIdentificationNumberHandler}
+					/>
+				</div>
+			);
+		} else {
+			return <span></span>;
+		}
+	}
+
+	getSaveButton() {
+		if (this.state.id === "business" || this.state.id === "customer") {
+			return (
+				<button
+					style={{ marginRight: "20px" }}
+					className='btn btn-primary'
+					onClick={this.saveoOrUpdateContractor}>
+					<i
+						className='bi bi-plus-circle'
+						style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+					/>
+					Dodaj
+				</button>
+			);
+		} else {
+			return (
+				<button
+					style={{ marginRight: "20px" }}
+					className='btn btn-primary'
+					onClick={this.saveoOrUpdateContractor}>
+					<i
+						className='bi bi-plus-circle'
+						style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+					/>
+					Zapisz zmiany
+				</button>
+			);
+		}
+	}
+
 	render() {
 		return (
 			<div>
 				<div className='container'>
-					<h3>Dodaj kotrahenta firmowego</h3>
+					{this.getSectionTitle()}
 					<form>
 						<div className='form-row'>
 							<div className='form-group col-md-5'>
@@ -85,27 +185,17 @@ class CreateContractorComponent extends Component {
 								/>
 							</div>
 							<div className='form-group col-md-5'>
-								<label>Nazwa</label>
+								{this.getNameTitle()}
 								<input
 									name='name'
 									className='form-control'
-									placeholder='Nazwa firmy lub imię i nazwisko'
 									value={this.state.name}
 									onChange={this.changeNameHandler}
 								/>
 							</div>
 						</div>
 						<div className='form-row'>
-							<div className='form-group col-md-5'>
-								<label>NIP</label>
-								<input
-									name='taxIdentificationNumber'
-									className='form-control'
-									placeholder='Numer identyfikacji podatkowej'
-									value={this.state.taxIdentificationNumber}
-									onChange={this.changeTaxIdentificationNumberHandler}
-								/>
-							</div>
+							{this.getTaxIdentificationNumberInput()}
 							<div className='form-group col-md-5'>
 								<label>Numer telefonu</label>
 								<input
@@ -146,14 +236,14 @@ class CreateContractorComponent extends Component {
 								/>
 							</div>
 						</div>
-						<Link to='/contractors'>
-							<button className='btn btn-primary' onClick={this.saveContractor}>
-								<i className='bi bi-plus-circle'></i>Dodaj
-							</button>
-						</Link>
+						<Link to='/contractors'>{this.getSaveButton()}</Link>
 						<Link to='/contractors'>
 							<button className='btn btn-danger'>
-								<i className='bi bi-x-circle'></i>Zamknij
+								<i
+									className='bi bi-x-circle'
+									style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+								/>
+								Zamknij
 							</button>
 						</Link>
 					</form>
@@ -163,4 +253,4 @@ class CreateContractorComponent extends Component {
 	}
 }
 
-export default CreateContractorComponent;
+export default withParams(CreateContractorComponent);

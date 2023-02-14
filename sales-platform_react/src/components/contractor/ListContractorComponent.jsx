@@ -42,21 +42,41 @@ class ListContractorComponent extends Component {
 									<td>{contractor.city}</td>
 									<td>{contractor.street}</td>
 									<td>{contractor.phoneNumber}</td>
-									<td></td>
+									<td>
+										<Link to={`/add-contractor/${contractor.id}`}>
+											<button className='btn btn-info'>
+												<i
+													className='bi bi-pencil-square'
+													style={{ marginRight: "0.5rem" }}
+												/>
+												Edytuj
+											</button>
+										</Link>
+									</td>
 								</tr>
 							))}
 						</tbody>
 					</table>
 				</div>
 				<div className='row'>
-					<Link to='/add-contractor'>
-					<button className='btn btn-info'>
-						<i className='bi bi-person-fill-add'></i>Dodaj kontrahenta firmowego
-					</button>
+					<Link to='/add-contractor/business'>
+						<button className='btn btn-info' style={{ marginRight: "20px" }}>
+							<i
+								className='bi bi-building-add'
+								style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+							/>
+							Dodaj kontrahenta firmowego
+						</button>
 					</Link>
-					<button className='btn btn-info'>
-						<i className='bi bi-person-fill-add'></i>Dodaj kontrahenta detalicznego
-					</button>
+					<Link to='/add-contractor/customer'>
+						<button className='btn btn-info'>
+							<i
+								className='bi bi-person-fill-add'
+								style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+							/>
+							Dodaj kontrahenta detalicznego
+						</button>
+					</Link>
 				</div>
 			</div>
 		);

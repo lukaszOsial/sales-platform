@@ -15,7 +15,7 @@ class HeaderComponent extends Component {
 						<h2 className='navbar-brand'>Sales platform</h2>
 						<Link to='/'>
 							<button type='button' className='btn btn-info'>
-								<i className='bi bi-house'></i>Home
+								<i className='bi bi-house' style={{ fontSize: "1.2rem" , marginRight: "0.5rem"}}></i>Home
 							</button>
 						</Link>
 					</nav>
