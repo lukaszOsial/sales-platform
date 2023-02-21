@@ -119,7 +119,10 @@ class CreateContractorComponent extends Component {
 	}
 
 	getTaxIdentificationNumberInput() {
-		if (this.state.id == "business") {
+		if (
+			this.state.id === "business" ||
+			this.state.taxIdentificationNumber !== ""
+		) {
 			return (
 				<div className='form-group col-md-5'>
 					<label>NIP</label>

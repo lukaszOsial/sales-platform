@@ -20,6 +20,10 @@ class ContractorService {
         return axios.put(SALES_PLATFORM_BASE_URL + '/' + contractorId, contractor);
     }
 
+    deleteContractor(contractorId) {
+        return axios.delete(SALES_PLATFORM_BASE_URL + "/" + contractorId);
+    }
+
 }
 
 export default new ContractorService();

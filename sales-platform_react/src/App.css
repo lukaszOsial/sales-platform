@@ -37,10 +37,14 @@ header{
     transform: rotate(360deg);
   }
 }
+.container{
+  max-width: 1300px;
+}
 
 .footer {
 	position: absolute;
-	bottom: 0;
+  margin-top: 50px;
+  bottom: 0;
 	width: 100%;
 	text-align: center;
 }

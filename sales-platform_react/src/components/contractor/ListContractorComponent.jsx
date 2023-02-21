@@ -14,10 +14,19 @@ class ListContractorComponent extends Component {
 			this.setState({ contractors: res.data });
 		});
 	}
+	deleteContractor(id) {
+		ContractorService.deleteContractor(id).then(res => {
+			this.setState({
+				contractors: this.state.contractors.filter(contractor => contractor.id != id),
+			});
+		});
+	}
 	render() {
 		return (
 			<div>
-				<h2 className='text-left'>Lista kontrahentów</h2>
+				<div className='row'>
+					<h2>Lista kontrahentów</h2>
+				</div>
 				<div className='row'>
 					<table className='table table-striped table-bordered'>
 						<thead>
@@ -44,7 +53,9 @@ class ListContractorComponent extends Component {
 									<td>{contractor.phoneNumber}</td>
 									<td>
 										<Link to={`/add-contractor/${contractor.id}`}>
-											<button className='btn btn-info'>
+											<button
+												className='btn btn-info'
+												style={{ marginRight: "0.5rem" }}>
 												<i
 													className='bi bi-pencil-square'
 													style={{ marginRight: "0.5rem" }}
@@ -52,6 +63,16 @@ class ListContractorComponent extends Component {
 												Edytuj
 											</button>
 										</Link>
+										
+											<button className='btn btn-danger'
+											onClick={() => this.deleteContractor(contractor.id)}>
+												<i
+													className='bi bi-trash'
+													style={{ marginRight: "0.5rem" }}
+												/>
+												Usuń
+											</button>
+										
 									</td>
 								</tr>
 							))}

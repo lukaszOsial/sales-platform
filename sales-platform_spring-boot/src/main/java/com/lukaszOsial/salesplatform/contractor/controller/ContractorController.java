@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -52,5 +54,16 @@ public class ContractorController {
 
         Contractor updatedContractor = contractorRepository.save(contractor);
         return ResponseEntity.ok(updatedContractor);
+    }
+
+    //delete contractor method
+    @DeleteMapping("/contractors/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteContractor(@PathVariable Long id) {
+        Contractor contractor = contractorRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Nie istnieje kontrahent o numerze identyfikacyjnym: " + id));
+        contractorRepository.delete(contractor);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }
