@@ -4,6 +4,7 @@ import ListContractorComponent from "./components/contractor/ListContractorCompo
 import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
 import CreateContractorComponent from "./components/contractor/CreateContractorComponent";
+import HomeComponent from "./components/home/HomeComponent";
 
 function App() {
 	return (
@@ -12,7 +13,7 @@ function App() {
 				<HeaderComponent />
 				<div className='container'>
 					<Routes>
-						<Route exact path ='/' element={<ListContractorComponent/>}/>
+						<Route exact path ='/' element={<HomeComponent/>}/>
 						<Route path ='/contractors' element={<ListContractorComponent/>}/>
 						<Route path ='/add-contractor/:id' element={<CreateContractorComponent/>}/>
 					</Routes>
