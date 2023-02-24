@@ -1,13 +1,21 @@
 import React, { Component } from "react";
 import ProductService from "../../services/ProductService";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
+export const withParams = Component => props => {
+	let params = useParams();
+	return <Component {...props} params={params} />;
+};
 
 class AddProductComponent extends Component {
 	constructor(props) {
 		super(props);
 
+		let { id } = props.params;
+
 		this.state = {
-			id: "",
+			id: id,
 			code: "",
 			name: "",
 			type: "",
@@ -24,9 +32,29 @@ class AddProductComponent extends Component {
 		this.changeNetPriceHandler = this.changeNetPriceHandler.bind(this);
 		this.changeVatRateHandler = this.changeVatRateHandler.bind(this);
 		this.changeQuantityHandler = this.changeQuantityHandler.bind(this);
+		this.addOrUpdateProduct = this.addOrUpdateProduct.bind(this);
 	}
 
-	addProduct = () => {
+	componentDidMount() {
+		if (this.state.id === "-1") {
+			return;
+		} else {
+			ProductService.getProductById(this.state.id).then(res => {
+				let product = res.data;
+				this.setState({
+					code: product.code,
+					name: product.name,
+					type: product.type,
+					grossPrice: product.grossPrice,
+					netPrice: product.netPrice,
+					vatRate: product.vatRate,
+					quantity: product.quantity,
+				});
+			});
+		}
+	}
+
+	addOrUpdateProduct = () => {
 		let product = {
 			code: this.state.code,
 			name: this.state.name,
@@ -37,7 +65,11 @@ class AddProductComponent extends Component {
 			quantity: this.state.quantity,
 		};
 
-		ProductService.addProduct(product);
+		if (this.state.id === "-1") {
+			ProductService.addProduct(product);
+		} else {
+			ProductService.updateProduct(product, this.state.id);
+		}
 	};
 
 	changeCodeHandler = event => {
@@ -68,11 +100,49 @@ class AddProductComponent extends Component {
 		this.setState({ quantity: event.target.value });
 	};
 
+	getSectionTitle() {
+		if (this.state.id === "-1") {
+			return <h3>Dodaj produkt</h3>;
+		} else {
+			return <h3>Edytuj produkt</h3>;
+		}
+	}
+
+	getSaveButton() {
+		if (this.state.id === "-1") {
+			return (
+				<button
+					style={{ marginRight: "20px" }}
+					className='btn btn-primary'
+					onClick={this.addOrUpdateProduct}>
+					<i
+						className='bi bi-plus-circle'
+						style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+					/>
+					Dodaj
+				</button>
+			);
+		} else {
+			return (
+				<button
+					style={{ marginRight: "20px" }}
+					className='btn btn-primary'
+					onClick={this.addOrUpdateProduct}>
+					<i
+						className='bi bi-plus-circle'
+						style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+					/>
+					Zapisz zmiany
+				</button>
+			);
+		}
+	}
+
 	render() {
 		return (
 			<div>
 				<div className='container'>
-					<h2>Dodaj produkt</h2>
+					{this.getSectionTitle()}
 					<form>
 						<div className='form-row'>
 							<div className='form-group col-md-2'>
@@ -131,7 +201,6 @@ class AddProductComponent extends Component {
 								<input
 									name='vatRate'
 									className='form-control'
-									
 									value={this.state.vatRate}
 									onChange={this.changeVatRateHandler}
 								/>
@@ -146,18 +215,7 @@ class AddProductComponent extends Component {
 								/>
 							</div>
 						</div>
-						<Link to='/products'>
-							<button
-								style={{ marginRight: "20px" }}
-								className='btn btn-primary'
-								onClick={this.addProduct}>
-								<i
-									className='bi bi-plus-circle'
-									style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
-								/>
-								Dodaj
-							</button>
-						</Link>
+						<Link to='/products'>{this.getSaveButton()}</Link>
 						<Link to='/products'>
 							<button className='btn btn-danger'>
 								<i
@@ -174,4 +232,4 @@ class AddProductComponent extends Component {
 	}
 }
 
-export default AddProductComponent;
+export default withParams(AddProductComponent);

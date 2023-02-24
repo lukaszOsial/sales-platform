@@ -47,9 +47,17 @@ class ListProductComponent extends Component {
 									<td>{product.vatRate}</td>
 									<td>{product.quantity}</td>
 									<td>
-										
-
-										
+										<Link to={`/add-product/${product.id}`}>
+											<button
+												className='btn btn-info'
+												style={{ marginRight: "0.5rem" }}>
+												<i
+													className='bi bi-pencil-square'
+													style={{ marginRight: "0.5rem" }}
+												/>
+												Edytuj
+											</button>
+										</Link>
 									</td>
 								</tr>
 							))}
@@ -57,7 +65,7 @@ class ListProductComponent extends Component {
 					</table>
 				</div>
 				<div className='row'>
-					<Link to='/add-product'>
+					<Link to='/add-product/-1'>
 						<button className='btn btn-info' style={{ marginRight: "20px" }}>
 							<i
 								className='bi bi-bag-plus-fill'
@@ -66,7 +74,6 @@ class ListProductComponent extends Component {
 							Dodaj artykuł
 						</button>
 					</Link>
-					
 				</div>
 			</div>
 		);

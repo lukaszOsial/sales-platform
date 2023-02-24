@@ -19,7 +19,7 @@ function App() {
 						<Route path ='/contractors' element={<ListContractorComponent/>}/>
 						<Route path ='/add-contractor/:id' element={<CreateContractorComponent/>}/>
 						<Route path ='/products' element={<ListProductComponent/>}/>
-						<Route path ='/add-product' element={<AddProductComponent/>}/>
+						<Route path ='/add-product/:id' element={<AddProductComponent/>}/>
 					</Routes>
 				</div>
 				<FooterComponent />
