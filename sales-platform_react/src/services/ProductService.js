@@ -7,6 +7,9 @@ class ProductService {
     getProducts() {
         return axios.get(SALES_PLATFORM_PRODUCTS_BASE_URL);
     }
+    addProduct(product) {
+		return axios.post(SALES_PLATFORM_PRODUCTS_BASE_URL, product);
+	}
 
 }
 

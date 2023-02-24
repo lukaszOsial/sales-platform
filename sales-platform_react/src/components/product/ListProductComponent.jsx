@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ProductService from "../../services/ProductService";
+import { Link } from "react-router-dom";
 
 class ListProductComponent extends Component {
 	constructor(props) {
@@ -55,7 +56,18 @@ class ListProductComponent extends Component {
 						</tbody>
 					</table>
 				</div>
-				
+				<div className='row'>
+					<Link to='/add-product'>
+						<button className='btn btn-info' style={{ marginRight: "20px" }}>
+							<i
+								className='bi bi-bag-plus-fill'
+								style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+							/>
+							Dodaj artykuł
+						</button>
+					</Link>
+					
+				</div>
 			</div>
 		);
 	}

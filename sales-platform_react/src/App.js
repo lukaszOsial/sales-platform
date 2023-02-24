@@ -5,6 +5,7 @@ import ListProductComponent from "./components/product/ListProductComponent";
 import HeaderComponent from "./components/HeaderComponent";
 import FooterComponent from "./components/FooterComponent";
 import CreateContractorComponent from "./components/contractor/CreateContractorComponent";
+import AddProductComponent from "./components/product/AddProductComponent";
 import HomeComponent from "./components/home/HomeComponent";
 
 function App() {
@@ -16,8 +17,9 @@ function App() {
 					<Routes>
 						<Route exact path ='/' element={<HomeComponent/>}/>
 						<Route path ='/contractors' element={<ListContractorComponent/>}/>
-						<Route path ='/products' element={<ListProductComponent/>}/>
 						<Route path ='/add-contractor/:id' element={<CreateContractorComponent/>}/>
+						<Route path ='/products' element={<ListProductComponent/>}/>
+						<Route path ='/add-product' element={<AddProductComponent/>}/>
 					</Routes>
 				</div>
 				<FooterComponent />
