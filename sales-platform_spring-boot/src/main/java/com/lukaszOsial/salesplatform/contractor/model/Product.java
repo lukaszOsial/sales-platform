@@ -2,6 +2,8 @@ package com.lukaszOsial.salesplatform.contractor.model;
 
 import jakarta.persistence.*;
 
+@Entity
+@Table(name = "products")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
