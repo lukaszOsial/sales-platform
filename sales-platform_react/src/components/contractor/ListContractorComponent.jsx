@@ -17,7 +17,9 @@ class ListContractorComponent extends Component {
 	deleteContractor(id) {
 		ContractorService.deleteContractor(id).then(res => {
 			this.setState({
-				contractors: this.state.contractors.filter(contractor => contractor.id != id),
+				contractors: this.state.contractors.filter(
+					contractor => contractor.id != id
+				),
 			});
 		});
 	}
@@ -63,16 +65,16 @@ class ListContractorComponent extends Component {
 												Edytuj
 											</button>
 										</Link>
-										
-											<button className='btn btn-danger'
+
+										<button
+											className='btn btn-danger'
 											onClick={() => this.deleteContractor(contractor.id)}>
-												<i
-													className='bi bi-trash'
-													style={{ marginRight: "0.5rem" }}
-												/>
-												Usuń
-											</button>
-										
+											<i
+												className='bi bi-trash'
+												style={{ marginRight: "0.5rem" }}
+											/>
+											Usuń
+										</button>
 									</td>
 								</tr>
 							))}

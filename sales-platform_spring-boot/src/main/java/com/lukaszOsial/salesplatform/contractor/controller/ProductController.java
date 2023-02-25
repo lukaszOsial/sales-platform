@@ -1,14 +1,15 @@
 package com.lukaszOsial.salesplatform.contractor.controller;
 
 import com.lukaszOsial.salesplatform.contractor.exception.ResourceNotFoundException;
-import com.lukaszOsial.salesplatform.contractor.model.Contractor;
 import com.lukaszOsial.salesplatform.contractor.model.Product;
 import com.lukaszOsial.salesplatform.contractor.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -52,5 +53,15 @@ public class ProductController {
 
         Product updatedProduct = productRepository.save(product);
         return ResponseEntity.ok(updatedProduct);
+    }
+
+    @DeleteMapping("/products/{id}")
+    public ResponseEntity<Map<String, Boolean>> deleteProduct(@PathVariable Long id) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Nie istnieje produkt o numerze identyfikacyjnym: " + id));
+        productRepository.delete(product);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", Boolean.TRUE);
+        return ResponseEntity.ok(response);
     }
 }

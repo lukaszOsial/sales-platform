@@ -7,6 +7,7 @@ import FooterComponent from "./components/FooterComponent";
 import CreateContractorComponent from "./components/contractor/CreateContractorComponent";
 import AddProductComponent from "./components/product/AddProductComponent";
 import HomeComponent from "./components/home/HomeComponent";
+import AddDocumentComponent from "./components/document/AddDocumentComponent";
 
 function App() {
 	return (
@@ -20,6 +21,7 @@ function App() {
 						<Route path ='/add-contractor/:id' element={<CreateContractorComponent/>}/>
 						<Route path ='/products' element={<ListProductComponent/>}/>
 						<Route path ='/add-product/:id' element={<AddProductComponent/>}/>
+						<Route path ='/add-document' element={<AddDocumentComponent/>}/>
 					</Routes>
 				</div>
 				<FooterComponent />

@@ -16,6 +16,14 @@ class ListProductComponent extends Component {
 		});
 	}
 
+	deleteProduct(id) {
+		ProductService.deleteProduct(id).then(res => {
+			this.setState({
+				products: this.state.products.filter(product => product.id != id),
+			});
+		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -58,6 +66,15 @@ class ListProductComponent extends Component {
 												Edytuj
 											</button>
 										</Link>
+										<button
+											className='btn btn-danger'
+											onClick={() => this.deleteProduct(product.id)}>
+											<i
+												className='bi bi-trash'
+												style={{ marginRight: "0.5rem" }}
+											/>
+											Usuń
+										</button>
 									</td>
 								</tr>
 							))}

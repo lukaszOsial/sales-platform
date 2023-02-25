@@ -20,6 +20,9 @@ class ProductService {
 			product
 		);
 	}
+	deleteProduct(productId) {
+		return axios.delete(SALES_PLATFORM_PRODUCTS_BASE_URL + "/" + productId);
+	}
 }
 
 export default new ProductService();
