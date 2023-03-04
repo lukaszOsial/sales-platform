@@ -9,6 +9,7 @@ import AddProductComponent from "./components/product/AddProductComponent";
 import HomeComponent from "./components/home/HomeComponent";
 import AddSaleComponent from "./components/document/AddSaleComponent";
 import AddInvoiceComponent from "./components/document/AddInvoiceComponent";
+import InvoiceListContractorComponent from "./components/document/InvoiceListContractorComponent";
 
 function App() {
 	return (
@@ -24,6 +25,7 @@ function App() {
 						<Route path ='/add-product/:id' element={<AddProductComponent/>}/>
 						<Route path ='/add-sale' element={<AddSaleComponent/>}/>
 						<Route path ='/add-sale/invoice' element={<AddInvoiceComponent/>}/>
+						<Route path='/add-sale/invoice/select-contractor' element={<InvoiceListContractorComponent/>}/>
 					</Routes>
 				</div>
 				<FooterComponent />
