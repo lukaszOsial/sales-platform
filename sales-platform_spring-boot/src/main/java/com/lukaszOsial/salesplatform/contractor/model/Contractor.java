@@ -36,6 +36,7 @@ public class Contractor {
     }
 
     public Contractor(String code, String name, String taxIdentificationNumber, String zipCode, String city, String street, String phoneNumber) {
+        
         this.code = code;
         this.name = name;
         this.taxIdentificationNumber = taxIdentificationNumber;

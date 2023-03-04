@@ -32,7 +32,7 @@ class HomeComponent extends Component {
 						Dokumenty handlowe
 					</button>
 				</Link>
-				<Link to={'/add-document'}>
+				<Link to={'/add-sale'}>
 					<button className='btn btn-info' style={{ margin: "1rem" , width: "380px", height: "250px", fontSize: "2.2rem"}}>
 						<i
 							className='bi bi-file-earmark-plus'
