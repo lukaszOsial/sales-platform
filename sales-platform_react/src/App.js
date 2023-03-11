@@ -10,6 +10,7 @@ import HomeComponent from "./components/home/HomeComponent";
 import AddSaleComponent from "./components/document/AddSaleComponent";
 import AddInvoiceComponent from "./components/document/AddInvoiceComponent";
 import InvoiceListContractorComponent from "./components/document/InvoiceListContractorComponent";
+import InvoiceListProductComponent from "./components/document/InvoiceListProductComponent";
 
 function App() {
 	return (
@@ -24,8 +25,10 @@ function App() {
 						<Route path ='/products' element={<ListProductComponent/>}/>
 						<Route path ='/add-product/:id' element={<AddProductComponent/>}/>
 						<Route path ='/add-sale' element={<AddSaleComponent/>}/>
-						<Route path ='/add-sale/invoice' element={<AddInvoiceComponent/>}/>
+						<Route path ='/add-sale/invoice/:id' element={<AddInvoiceComponent/>}/>
+						<Route path ='/add-sale/invoice/' element={<AddInvoiceComponent/>}/>
 						<Route path='/add-sale/invoice/select-contractor' element={<InvoiceListContractorComponent/>}/>
+						<Route path='/add-sale/invoice/select-product' element={<InvoiceListProductComponent/>}/>
 					</Routes>
 				</div>
 				<FooterComponent />

@@ -1,7 +1,34 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import InvoiceService from "../../services/ContractorService";
+
+export const withParams = Component => props => {
+	let params = useParams();
+	return <Component {...props} params={params} />;
+};
 
 class AddInvoiceComponent extends Component {
+	constructor(props) {
+		super(props);
+
+		let { id } = props.params;
+
+		this.state = {
+			id: id,
+			name: "",
+		};
+	}
+
+	componentDidMount() {
+		InvoiceService.getContractorById(this.state.id).then(res => {
+			let contractor = res.data;
+			this.setState({
+				name: contractor.name,
+			});
+		});
+	}
+
 	render() {
 		return (
 			<div>
@@ -26,7 +53,12 @@ class AddInvoiceComponent extends Component {
 				<form>
 					<div className='form-group col-md-4'>
 						<label>Kontrahent</label>
-						<input name='code' className='form-control' />
+						<input
+							name='name'
+							className='form-control'
+							value={this.state.name}
+							readOnly
+						/>
 					</div>
 				</form>
 				<Link to='/add-sale/invoice/select-contractor'>
@@ -38,13 +70,15 @@ class AddInvoiceComponent extends Component {
 						Dodaj kontrahenta
 					</button>
 				</Link>
-				<button style={{ marginRight: "20px" }} className='btn btn-primary'>
-					<i
-						className='bi bi-plus-circle'
-						style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
-					/>
-					Dodaj produkt
-				</button>
+				<Link to='/add-sale/invoice/select-product'>
+					<button style={{ marginRight: "20px" }} className='btn btn-primary'>
+						<i
+							className='bi bi-plus-circle'
+							style={{ fontSize: "1.2rem", marginRight: "0.5rem" }}
+						/>
+						Dodaj produkt
+					</button>
+				</Link>
 				<button className='btn btn-danger'>
 					<i className='bi bi-trash' style={{ marginRight: "0.5rem" }} />
 					Usuń wszystko
@@ -61,4 +95,4 @@ class AddInvoiceComponent extends Component {
 	}
 }
 
-export default AddInvoiceComponent;
+export default withParams(AddInvoiceComponent);

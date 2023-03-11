@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import ContractorService from "../../services/ContractorService";
+import ProductService from "../../services/ProductService";
 import { Link } from "react-router-dom";
 
-class InvoiceListContractorComponent extends Component {
+class InvoiceListProductComponent extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			contractors: [],
+			products: [],
 		};
 	}
 	componentDidMount() {
-		ContractorService.getContractors().then(res => {
-			this.setState({ contractors: res.data });
+		ProductService.getProducts().then(res => {
+			this.setState({ products: res.data });
 		});
 	}
 	render() {
@@ -24,28 +24,28 @@ class InvoiceListContractorComponent extends Component {
 					<table className='table table-striped table-bordered'>
 						<thead>
 							<tr>
-								<th>Kod </th>
+								<th>Kod</th>
 								<th>Nazwa</th>
-								<th>NIP</th>
-								<th>Kod pocztowy</th>
-								<th>Miasto</th>
-								<th>Ulica</th>
-								<th>Numer telefonu</th>
+								<th>Typ</th>
+								<th>Cena brutto</th>
+								<th>Cena netto</th>
+								<th>Vat</th>
+								<th>Dostępna ilość</th>
 								<th>Akcje</th>
 							</tr>
 						</thead>
 						<tbody>
-							{this.state.contractors.map(contractor => (
-								<tr key={contractor.code}>
-									<td>{contractor.code}</td>
-									<td>{contractor.name}</td>
-									<td>{contractor.taxIdentificationNumber}</td>
-									<td>{contractor.zipCode}</td>
-									<td>{contractor.city}</td>
-									<td>{contractor.street}</td>
-									<td>{contractor.phoneNumber}</td>
+							{this.state.products.map(product => (
+								<tr key={product.code}>
+									<td>{product.code}</td>
+									<td>{product.name}</td>
+									<td>{product.type}</td>
+									<td>{product.grossPrice}</td>
+									<td>{product.netPrice}</td>
+									<td>{product.vatRate}</td>
+									<td>{product.quantity}</td>
 									<td>
-										<Link to={`/add-sale/invoice/${contractor.id}`}>
+										<Link to={`/add-sale/invoice/${product.id}/`}>
 											<button
 												className='btn btn-info'
 												style={{ marginRight: "0.5rem" }}>
@@ -67,4 +67,4 @@ class InvoiceListContractorComponent extends Component {
 	}
 }
 
-export default InvoiceListContractorComponent;
+export default InvoiceListProductComponent;
